@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentCare | Early Warning System</title>
+    <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="#" data-go="home">🎓 StudentCare</a>
+        <nav aria-label="Main navigation">
+            <button type="button" data-go="home">Home</button>
+            <button type="button" data-go="add">Add Student</button>
+            <button type="button" data-go="dashboard">Dashboard</button>
+            <button type="button" data-go="students">Students</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HOME -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <div>
+                    <p class="eyebrow">STUDENT SUCCESS • EARLY SUPPORT</p>
+                    <h1>Early Warning System<br>
+                        <span>for At-Risk Students</span>
+                    </h1>
+                    <p class="hero-text">
+                        Identify students who may need academic support early
+                        and help them improve their academic outcomes.
+                    </p>
+                    <button type="button" class="primary" data-go="add">
+                        Analyse Student →
+                    </button>
+                </div>
+                <div class="hero-icon" aria-hidden="true">📚</div>
+            </div>
+
+            <div id="homeStats" class="stats"></div>
+
+            <div class="section-title">
+                <h2>What You Can Do</h2>
+                <p>Manage student records and review academic progress.</p>
+            </div>
+
+            <div class="features">
+                <button type="button" class="feature-card" data-go="add">
+                    <b>＋ Analyse Student Performance</b>
+                    <span>Enter student marks, attendance and assignment status.</span>
+                </button>
+                <button type="button" class="feature-card" data-go="dashboard">
+                    <b>▥ View Dashboard</b>
+                    <span>Review student performance charts and risk levels.</span>
+                </button>
+                <button type="button" class="feature-card" data-go="students">
+                    <b>👥 Manage Students</b>
+                    <span>View, edit, search or delete student records.</span>
+                </button>
+            </div>
+            <p class="note">Records are saved in this browser on this device.</p>
+        </section>
+
+        <!-- ADD / EDIT STUDENT -->
+        <section id="add" class="page">
+            <div class="heading">
+                <p class="eyebrow">STUDENT RECORD</p>
+                <h1 id="formTitle">Add Student</h1>
+                <p>Enter student information and academic performance.</p>
+            </div>
+
+            <form id="studentForm" class="panel">
+                <input type="hidden" id="recordId">
+
+                <h2>👤 Student Information</h2>
+                <div class="form-grid">
+                    <label>Student ID
+                        <input id="studentId" required maxlength="30"
+                               placeholder="Example: STU001">
+                    </label>
+                    <label>Student Name
+                        <input id="studentName" required maxlength="80"
+                               placeholder="Enter student name">
+                    </label>
+                    <label>Class / Grade
+                        <select id="className" required>
+                            <option value="">Select class</option>
+                            <option>Class 6</option>
+                            <option>Class 7</option>
+                            <option>Class 8</option>
+                            <option>Class 9</option>
+                            <option>Class 10</option>
+                            <option>Class 11</option>
+                            <option>Class 12</option>
+                        </select>
+                    </label>
+                    <label>Age
+                        <input id="age" type="number" min="5" max="25"
+                               required placeholder="Student age">
+                    </label>
+                </div>
+
+                <h2>📊 Academic Information</h2>
+                <div class="form-grid">
+                    <label>Attendance (%)
+                        <input id="attendance" type="number" min="0" max="100"
+                               step="0.1" required placeholder="Example: 85">
+                    </label>
+                    <label>Internal Marks (%)
+                        <input id="internalMarks" type="number" min="0" max="100"
+                               step="0.1" required placeholder="Example: 65">
+                    </label>
+                    <label>Previous Marks (%)
+                        <input id="previousMarks" type="number" min="0" max="100"
+                               step="0.1" required placeholder="Example: 70">
+                    </label>
+                    <label>Assignment Submission
+                        <select id="assignmentStatus" required>
+                            <option value="">Select status</option>
+                            <option value="On Time">On Time</option>
+                            <option value="Late">Late</option>
+                            <option value="Not Submitted">Not Submitted</option>
+                        </select>
+                    </label>
+                </div>
+
+                <h2>📚 Subject Marks (%)</h2>
+                <p class="muted">Enter marks from 0 to 100 for each subject.</p>
+                <div class="form-grid">
+                    <label>English
+                        <input id="english" type="number" min="0" max="100"
+                               required placeholder="English marks">
+                    </label>
+                    <label>Maths
+                        <input id="maths" type="number" min="0" max="100"
+                               required placeholder="Maths marks">
+                    </label>
+                    <label>Hindi
+                        <input id="hindi" type="number" min="0" max="100"
+                               required placeholder="Hindi marks">
+                    </label>
+                    <label>Marathi
+                        <input id="marathi" type="number" min="0" max="100"
+                               required placeholder="Marathi marks">
+                    </label>
+                    <label>Science
+                        <input id="science" type="number" min="0" max="100"
+                               required placeholder="Science marks">
+                    </label>
+                    <label>History
+                        <input id="history" type="number" min="0" max="100"
+                               required placeholder="History marks">
+                    </label>
+                    <label>Geography
+                        <input id="geography" type="number" min="0" max="100"
+                               required placeholder="Geography marks">
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="primary" id="saveButton">
+                        Save &amp; Analyse Student
+                    </button>
+                    <button type="reset" class="secondary" id="clearButton">
+                        Clear Form
+                    </button>
+                    <button type="button" class="secondary" id="cancelEditButton"
+                            hidden>Cancel Edit</button>
+                </div>
+                <p id="formMessage" class="message" role="status"></p>
+            </form>
+
+            <div id="studentAnalysis" class="analysis"></div>
+        </section>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="page">
+            <div class="heading">
+                <p class="eyebrow">OVERVIEW</p>
+                <h1>Dashboard</h1>
+                <p>Review student performance and academic warning levels.</p>
+            </div>
+
+            <div id="dashboardStats" class="stats"></div>
+
+            <div class="charts">
+                <article class="panel">
+                    <h2>Overall Student Performance</h2>
+                    <div class="chart">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </article>
+                <article class="panel">
+                    <h2>Subject Performance</h2>
+                    <div class="chart">
+                        <canvas id="subjectChart"></canvas>
+                    </div>
+                </article>
+                <article class="panel">
+                    <h2>Risk Level Distribution</h2>
+                    <div class="chart">
+                        <canvas id="riskChart"></canvas>
+                    </div>
+                </article>
+            </div>
+
+            <div class="section-title">
+                <h2>Students Requiring Attention</h2>
+                <p>Students with medium or high academic risk.</p>
+            </div>
+            <div id="dashboardAnalysis" class="analysis"></div>
+        </section>
+
+        <!-- STUDENTS -->
+        <section id="students" class="page">
+            <div class="heading">
+                <p class="eyebrow">STUDENT RECORDS</p>
+                <h1>Manage Students</h1>
+                <p>Search, review, edit and delete student information.</p>
+            </div>
+
+            <div class="toolbar">
+                <input id="studentSearch" type="search"
+                       placeholder="Search by student name or ID"
+                       aria-label="Search students">
+                <button type="button" class="primary" data-go="add">
+                    + Add Student
+                </button>
+            </div>
+
+            <div class="table-wrap panel">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Attendance</th>
+                            <th>Internal Marks</th>
+                            <th>Previous Marks</th>
+                            <th>Assignment</th>
+                            <th>Risk Score</th>
+                            <th>Risk Level</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTable"></tbody>
+                </table>
+                <p id="emptyStudents" class="empty">
+                    No student records yet. Add a student to begin.
+                </p>
+            </div>
+
+            <div class="section-title">
+                <h2>Subject-wise Student Analysis</h2>
+            </div>
+            <div id="studentAnalysisList" class="analysis"></div>
+        </section>
+    </main>
+
+    <footer>
+       <h2> StudentCare · Early Warning System for At-Risk Students
+        Developed by UJWALA BHEDEKAR
+       </h2>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./static/script.js"></script>
+</body>
+</html>
+
